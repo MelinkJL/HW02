@@ -77,9 +77,8 @@ void HW02App::setup()
 
 	
 	for(int i = 0; i < 7; i++){
-		cur = new Node((rand()%200 + 10),(rand()%200 + 10),(rand()%200 + 10));
-		//cur = new Node(100+(20*i),100+(20*i),100+(20*i));
-		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		//cur = new Node((rand()%200 + 10),(rand()%200 + 10),(rand()%200 + 10));
+		cur = new Node(100+(5*i),100+(5*i),100+(5*i));
 		((Node)*cur).insertAfter(cur, previous);
 		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		previous = cur;
