@@ -9,12 +9,22 @@ using namespace std;
 
 class HW02App : public AppBasic {
   public:
+	// sets the width and height of the app.
+    // also sets whether the screen can be resizeable.
 	void prepareSettings(Settings* settings);
+	// sets up certain variables and creates the nodes
 	void setup();
+	// when you right click it reverses the list of rectangles
 	void mouseDown( MouseEvent event );	
+	// when ? key is pressed, it toggles from directions to the interactive screen.
+	// when control is pressed, it goes through the nodes bringing the rectangles up,
+	// to the top. (kind of like bringing it to the top of a layer of a picture)
 	void keyDown( KeyEvent event );	
 	void update();
+	// draws the surface and directions(Strings) for the program
 	void draw();
+	// draws a rectangle using the surfaces pixels, and the coordinates of
+	// the top left and bottom right coordinate.
 	void drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2);
 	static const int kAppWidth = 600;
 	static const int kAppHeight = 600;
@@ -78,10 +88,12 @@ void HW02App::setup()
 	Node* previous = sentinel;
 	Node* cur;
 
-	
+	// for loop that creates 10 nodes and moves each one,
+	// seperately so that you can differentiate between them.
+	// uses insertAfter method which is in Node.cpp
 	for(int i = 0; i < 10; i++){
 		cur = new Node(100+(7*i),100+(7*i),100+(7*i));
-		((Node)*cur).insertAfter(cur, previous);
+		cur->insertAfter(cur, previous);
 		previous = cur;
 	}
 
