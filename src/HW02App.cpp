@@ -2,7 +2,6 @@
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
 #include "Node.h"
-#include "Shape.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -15,7 +14,7 @@ class HW02App : public AppBasic {
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
-	void drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2, Color8u c);
+	void drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2);
 	static const int kAppWidth = 600;
 	static const int kAppHeight = 600;
 	static const int kSurfaceSize = 1240;
@@ -24,10 +23,11 @@ class HW02App : public AppBasic {
 	Surface* mySurface_;
 	uint8_t* myPixels_;
 	Node* sentinel;
-	int nodeCounter;
 };
 
-void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2, Color8u c){
+void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2){
+
+	Color8u c = Color8u(0,0,0);
 
 	int startx = (x1 < x2) ? x1 : x2;
 	int endx = (x1 < x2) ? x2 : x1;
@@ -66,10 +66,18 @@ void HW02App::prepareSettings(Settings* settings)
 
 void HW02App::setup()
 {
+	srand(time(0));
 	mySurface_ = new Surface(kSurfaceSize, kSurfaceSize, false);
-	myPixels_ = (*mySurface_).getData();
-	sentinel = new Node();
-	nodeCounter = 1;
+
+	Node* previous = sentinel;
+	Node* cur;
+
+	sentinel = new Node(100, 100, 100);
+	for(int i = 0; i < 7; i++){
+		cur = new Node((rand()%200 + 10),(rand()%200 + 10),(rand()%200 + 10));
+		((Node)*cur).insertAfter(cur, previous);
+		previous = cur;
+	}
 }
 
 void HW02App::mouseDown( MouseEvent event )
@@ -78,7 +86,8 @@ void HW02App::mouseDown( MouseEvent event )
 
 void HW02App::update()
 {
-	drawRect(myPixels_, sentinel -> rect -> x, sentinel -> rect -> y, sentinel -> rect -> x + 30, sentinel -> rect -> y + 30, Color8u(0,0,0));
+	myPixels_ = (*mySurface_).getData();
+	drawRect(myPixels_, sentinel -> x, sentinel -> x + sentinel -> radius, sentinel -> y, sentinel -> y + sentinel -> radius);
 }
 
 void HW02App::draw()
