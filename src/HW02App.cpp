@@ -81,9 +81,19 @@ void HW02App::setup()
 		//cur = new Node(100+(20*i),100+(20*i),100+(20*i));
 		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		((Node)*cur).insertAfter(cur, previous);
-		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		previous = cur;
 	}
+
+	sentinel->reverseList(sentinel);
+	cur = sentinel;
+	//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+
+	do{
+		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		cur = cur->next_;
+	} while(cur != sentinel);
+
 }
 
 void HW02App::mouseDown( MouseEvent event )
