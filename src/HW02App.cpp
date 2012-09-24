@@ -73,7 +73,7 @@ void HW02App::setup()
 	myPixels_ = (*mySurface_).getData();
 	
 	font = new Font("Arial", 30);
-	sentinel = new Node(0,0,0);
+	sentinel = new Node(100,100,100);
 	Node* previous = sentinel;
 	Node* cur;
 
@@ -81,24 +81,28 @@ void HW02App::setup()
 	for(int i = 0; i < 20; i++){
 		cur = new Node(100+(7*i),100+(7*i),100+(7*i));
 		((Node)*cur).insertAfter(cur, previous);
-		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		previous = cur;
 	}
 
 	//sentinel->reverseList(sentinel);
 	//cur = sentinel;
 	
-	
-	//for(int x = 0; x < 7; x++){
+	//do{
 	//	drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
-	//	cur = cur->next_;
-	//}
+	//	cur = cur->prev_;
+	//} while(cur != sentinel);
 
 }
 
 void HW02App::mouseDown( MouseEvent event )
 {
-	
+	sentinel->reverseList(sentinel);
+	Node* cur = sentinel->next_;
+	do{
+		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		cur = cur->next_;
+	} while(cur != sentinel);
 }
 void HW02App::keyDown( KeyEvent event )
 {
