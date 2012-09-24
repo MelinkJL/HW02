@@ -12,6 +12,7 @@ class HW02App : public AppBasic {
 	void prepareSettings(Settings* settings);
 	void setup();
 	void mouseDown( MouseEvent event );	
+	void keyDown( KeyEvent event );	
 	void update();
 	void draw();
 	void drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2);
@@ -23,11 +24,12 @@ class HW02App : public AppBasic {
 	Surface* mySurface_;
 	uint8_t* myPixels_;
 	Node* sentinel;
+	Font* font;
 };
 
 void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2){
 
-	Color8u c = Color8u(x1,y1,x2);
+	Color8u c = Color8u(x2,0,x1);
 
 	int startx = (x1 < x2) ? x1 : x2;
 	int endx = (x1 < x2) ? x2 : x1;
@@ -66,48 +68,55 @@ void HW02App::prepareSettings(Settings* settings)
 
 void HW02App::setup()
 {
-	srand(time(0));
+	
 	mySurface_ = new Surface(kSurfaceSize, kSurfaceSize, false);
 	myPixels_ = (*mySurface_).getData();
 	
-	sentinel = new Node((rand()%200 + 10),(rand()%200 + 10),(rand()%200 + 10));
-	//sentinel = new Node(100,100,100);
+	font = new Font("Arial", 30);
+	sentinel = new Node(0,0,0);
 	Node* previous = sentinel;
 	Node* cur;
 
 	
-	for(int i = 0; i < 7; i++){
-		//cur = new Node((rand()%200 + 10),(rand()%200 + 10),(rand()%200 + 10));
-		cur = new Node(100+(5*i),100+(5*i),100+(5*i));
+	for(int i = 0; i < 20; i++){
+		cur = new Node(100+(7*i),100+(7*i),100+(7*i));
 		((Node)*cur).insertAfter(cur, previous);
-		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		previous = cur;
 	}
 
-	sentinel->reverseList(sentinel);
-	cur = sentinel;
-	//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
-
-	do{
-		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
-		cur = cur->next_;
-	} while(cur != sentinel);
+	//sentinel->reverseList(sentinel);
+	//cur = sentinel;
+	
+	
+	//for(int x = 0; x < 7; x++){
+	//	drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+	//	cur = cur->next_;
+	//}
 
 }
 
 void HW02App::mouseDown( MouseEvent event )
 {
+	
+}
+void HW02App::keyDown( KeyEvent event )
+{
+	
 }
 
 void HW02App::update()
 {
-	myPixels_ = (*mySurface_).getData();
-	//drawRect(myPixels_, sentinel -> x, sentinel -> x + sentinel -> radius, sentinel -> y, sentinel -> y + sentinel -> radius);
+	
 }
 
 void HW02App::draw()
 {
+	
 	gl::draw(*mySurface_);
+	//gl::drawString("hello world",Vec2f(200.0f,200.0f),Color(0.9f,0,0),*font);
+	
+	
 }
 
 CINDER_APP_BASIC( HW02App, RendererGl )
