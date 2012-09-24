@@ -123,7 +123,8 @@ void HW02App::draw()
 {
 	if(menu){ 
 		gl::clear(Color(0,0,0));
-		gl::drawString("Click on the screen to display and reverse list of rectangles.",Vec2f(30.0f,275.0f),Color(0,0,1.0f),*font);
+		gl::drawString("Click on the screen to display and reverse list of rectangles.",Vec2f(30.0f,350.0f),Color(0,0,1.0f),*font);
+		gl::drawString("Click control button to scroll through the list(bring rectangle to top).",Vec2f(30.0f,275.0f),Color(0,0,1.0f),*font);
 		gl::drawString("(click ? to go to screen with rectangles or to come back to these directions)",Vec2f(30.0f,200.0f),Color(0,0,1.0f),*font);
 	}
 	else
