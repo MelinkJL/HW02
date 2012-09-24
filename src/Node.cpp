@@ -3,12 +3,10 @@
 
 Node::Node(void)
 {
+	next_ = prev_ = this;
+	rect = new Shape(100, 100, 100);
 }
 
-
-Node::~Node(void)
-{
-}
 
 void insertAfter(Node* insert_me, Node* after_this)
 {
