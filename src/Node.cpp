@@ -10,12 +10,12 @@ Node::Node(int x1, int y1, int radius1)
 }
 
 
-void Node::insertAfter(Node* insert, Node* sentinel)
+void Node::insertAfter(Node* insert_me, Node* sentinel)
 {
-	insert->next_ = sentinel;
-	insert->prev_ = sentinel->prev_;
-	sentinel->prev_->next_ = insert;
-	sentinel->prev_ = insert;
+	insert_me->next_ = sentinel;
+	insert_me->prev_ = sentinel->prev_;
+	sentinel->prev_->next_ = insert_me;
+	sentinel->prev_ = insert_me;
 }
 
 void Node::reverseList(Node* sentinel)

@@ -79,35 +79,38 @@ void HW02App::setup()
 	Node* cur;
 
 	
-	for(int i = 0; i < 20; i++){
+	for(int i = 0; i < 10; i++){
 		cur = new Node(100+(7*i),100+(7*i),100+(7*i));
 		((Node)*cur).insertAfter(cur, previous);
-		//drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 		previous = cur;
 	}
-
-	//sentinel->reverseList(sentinel);
-	//cur = sentinel;
-	
-	//do{
-	//	drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
-	//	cur = cur->prev_;
-	//} while(cur != sentinel);
 
 }
 
 void HW02App::mouseDown( MouseEvent event )
 {
-	sentinel->reverseList(sentinel);
-	Node* cur = sentinel->next_;
-	do{
-		drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
-		cur = cur->next_;
-	} while(cur != sentinel);
+	if(event.isLeftDown()){
+		sentinel->reverseList(sentinel);
+		Node* cur = sentinel->next_;
+		do{
+			drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
+			cur = cur->next_;
+		} while(cur != sentinel);
+	}
+	if(event.getWheelIncrement()>0){
+		Node* current = sentinel->next_;
+		sentinel->next_ = current->next_;
+		sentinel->next_->prev_ = sentinel;
+		sentinel->insertAfter(current, sentinel);
+		do{
+			drawRect(myPixels_, current -> x, current -> x + current -> radius, current -> y, current -> y + current -> radius);
+			current = current->next_;
+		} while(current != sentinel);
+	}
 }
 void HW02App::keyDown( KeyEvent event )
 {
-	if(event.getChar()=='/' || event.getChar() == '?')
+	if(event.getChar() == '?')
 		menu = !menu;
 }
 
