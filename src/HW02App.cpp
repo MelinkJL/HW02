@@ -27,7 +27,7 @@ class HW02App : public AppBasic {
 
 void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2){
 
-	Color8u c = Color8u(x1,x1,x1);
+	Color8u c = Color8u(x1,y1,x2);
 
 	int startx = (x1 < x2) ? x1 : x2;
 	int endx = (x1 < x2) ? x2 : x1;
