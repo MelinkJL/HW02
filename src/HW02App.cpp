@@ -25,6 +25,7 @@ class HW02App : public AppBasic {
 	uint8_t* myPixels_;
 	Node* sentinel;
 	Font* font;
+	bool menu;
 };
 
 void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2){
@@ -71,8 +72,8 @@ void HW02App::setup()
 	
 	mySurface_ = new Surface(kSurfaceSize, kSurfaceSize, false);
 	myPixels_ = (*mySurface_).getData();
-	
-	font = new Font("Arial", 30);
+	menu = true;
+	font = new Font("Times New Roman", 25);
 	sentinel = new Node(100,100,100);
 	Node* previous = sentinel;
 	Node* cur;
@@ -106,7 +107,8 @@ void HW02App::mouseDown( MouseEvent event )
 }
 void HW02App::keyDown( KeyEvent event )
 {
-	
+	if(event.getChar()=='/' || event.getChar() == '?')
+		menu = !menu;
 }
 
 void HW02App::update()
@@ -116,10 +118,13 @@ void HW02App::update()
 
 void HW02App::draw()
 {
-	
-	gl::draw(*mySurface_);
-	//gl::drawString("hello world",Vec2f(200.0f,200.0f),Color(0.9f,0,0),*font);
-	
+	if(menu){ 
+		gl::clear(Color(0,0,0));
+		gl::drawString("Click on the screen to display and reverse list of rectangles.",Vec2f(30.0f,275.0f),Color(0,0,1.0f),*font);
+		gl::drawString("(click ? to go to screen with rectangles or to come back to these directions)",Vec2f(30.0f,200.0f),Color(0,0,1.0f),*font);
+	}
+	else
+		gl::draw(*mySurface_);
 	
 }
 
