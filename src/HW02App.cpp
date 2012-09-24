@@ -97,7 +97,12 @@ void HW02App::mouseDown( MouseEvent event )
 			cur = cur->next_;
 		} while(cur != sentinel);
 	}
-	if(event.getWheelIncrement()>0){
+}
+void HW02App::keyDown( KeyEvent event )
+{
+	if(event.getChar() == '?')
+		menu = !menu;
+	if(event.isControlDown()){
 		Node* current = sentinel->next_;
 		sentinel->next_ = current->next_;
 		sentinel->next_->prev_ = sentinel;
@@ -107,11 +112,6 @@ void HW02App::mouseDown( MouseEvent event )
 			current = current->next_;
 		} while(current != sentinel);
 	}
-}
-void HW02App::keyDown( KeyEvent event )
-{
-	if(event.getChar() == '?')
-		menu = !menu;
 }
 
 void HW02App::update()
