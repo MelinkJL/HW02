@@ -9,6 +9,8 @@ using namespace std;
 
 class HW02App : public AppBasic {
   public:
+         // When you comment, make sure if the method has a parameter, that you include the following:
+         // @param nameOfParameter: Description of parameter
 	// sets the width and height of the app.
     // also sets whether the screen can be resizeable.
 	void prepareSettings(Settings* settings);
@@ -42,6 +44,8 @@ void HW02App::drawRect(uint8_t* pixels, int x1, int x2, int y1, int y2){
 
 	Color8u c = Color8u(x2,0,x1);
 
+         // This part is interesting.  It might be faster and more user friendly if you used
+         // height and width instead of using another set of coordinates.
 	int startx = (x1 < x2) ? x1 : x2;
 	int endx = (x1 < x2) ? x2 : x1;
 	int starty = (y1 < y2) ? y1 : y2;
@@ -85,8 +89,9 @@ void HW02App::setup()
 	menu = true;
 	font = new Font("Times New Roman", 25);
 	sentinel = new Node(100,100,100);
-	Node* previous = sentinel;
-	Node* cur;
+	Node* previous = sentinel; // Try to stay consistent when you are naming your variables by
+	Node* cur;                 // either abbreviating them or spelling them out, just makes it
+                                    // easier to read.
 
 	// for loop that creates 10 nodes and moves each one,
 	// seperately so that you can differentiate between them.
@@ -105,6 +110,8 @@ void HW02App::mouseDown( MouseEvent event )
 		sentinel->reverseList(sentinel);
 		Node* cur = sentinel->next_;
 		do{
+                           // This part seems somewhat inefficient, likely due to your use of two sets of coordinates
+                           // instead of using height and width
 			drawRect(myPixels_, cur -> x, cur -> x + cur -> radius, cur -> y, cur -> y + cur -> radius);
 			cur = cur->next_;
 		} while(cur != sentinel);
@@ -128,11 +135,13 @@ void HW02App::keyDown( KeyEvent event )
 
 void HW02App::update()
 {
-	
+  // Not sure if it would have helped, but you might have saved some time just clearing the pixel array
+  // and reupdating it here.
 }
 
 void HW02App::draw()
 {
+         // Clever way of getting the menu, I wouldn't have thought of that
 	if(menu){ 
 		gl::clear(Color(0,0,0));
 		gl::drawString("Click on the screen to display and reverse list of rectangles.",Vec2f(30.0f,350.0f),Color(0,0,1.0f),*font);
